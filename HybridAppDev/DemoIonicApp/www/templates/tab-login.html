@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<ion-view view-title="Login">
+
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top:100px">
+      <div class="modal-body">
+          <form class="form col-md-12 center-block">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" placeholder="Password">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block">Sign In</button>
+              <button class="btn btn-default" id="r" onclick="show()">Register</button>
+            </div>
+          </form>
+      </div>
+      <div class="modal-footer">
+          <div class="col-md-12">
+      </div>  
+      </div>
+
+<div class="container" id="r" style="display:none">
+<div class="modal-body" >
+          <p style="text-align:center">Register</p>
+          <form class="form col-md-12 center-block">
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="User Name" name="username">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control input-lg" placeholder="Email" name="email">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" placeholder="Password" name="password">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary btn-lg btn-block" ng-click="createUser(username,email,password)">Sign Up</button>
+            </div>
+          </form>
+      </div>
+</div>
+
+</div>
+
+</ion-view>
+<script type="text/javascript">
+function show(){
+  alert("hei");
+  document.getElementById('r').innerHTML = "HELLO WORLD";
+}
+</script>
+</body>
+</html>
+
