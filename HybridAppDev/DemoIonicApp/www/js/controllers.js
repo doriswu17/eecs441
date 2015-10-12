@@ -37,8 +37,13 @@ angular.module('starter.controllers', [])
 
 .controller('LoginCtrl', function($scope) {
   $scope.settings = {
+    showSignup: false,
     enableFriends: true
   };
+
+  $scope.showSignup = function() {
+    $scope.settings.showSignup = true;
+  }
 })
 
 .controller('RegisterCtrl', function($scope) {

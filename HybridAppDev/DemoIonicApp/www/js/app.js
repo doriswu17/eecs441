@@ -13,6 +13,12 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
+
+var PARSE_APP_ID = 'q0bqmwvIJblKB6MWfbqFfwn9DNMLzHOsGNxG8wqi';
+var PARSE_JAVASCRIPT_KEY = '6jwYMqyVNi5P600JVAw1w4y5393jJYg4IZArDIXn';
+
+Parse.initialize(PARSE_APP_ID, PARSE_JAVASCRIPT_KEY); 
+
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
@@ -21,10 +27,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // a plugin or Ionic, put it inside here.
 
 
-  // var PARSE_APP_ID = 'q0bqmwvIJblKB6MWfbqFfwn9DNMLzHOsGNxG8wqi';
-  // var PARSE_JAVASCRIPT_KEY = '6jwYMqyVNi5P600JVAw1w4y5393jJYg4IZArDIXn';
-
-  // Parse.initialize(PARSE_APP_ID, PARSE_JAVASCRIPT_KEY); 
+   
 
 
   $ionicPlatform.ready(function() {

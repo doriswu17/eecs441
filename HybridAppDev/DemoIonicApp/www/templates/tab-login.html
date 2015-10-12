@@ -1,8 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
 <ion-view view-title="Login">
 
 <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top:100px">
@@ -16,7 +11,7 @@
             </div>
             <div class="form-group">
               <button class="btn btn-primary btn-lg btn-block">Sign In</button>
-              <button class="btn btn-default" id="r" onclick="show()">Register</button>
+              <button class="btn btn-default" id="r" ng-click="showSignup()">Register</button>
             </div>
           </form>
       </div>
@@ -25,8 +20,8 @@
       </div>  
       </div>
 
-<div class="container" id="r" style="display:none">
-<div class="modal-body" >
+    <div class="container" ng-if="settings.showSignup">
+      <div class="modal-body" >
           <p style="text-align:center">Register</p>
           <form class="form col-md-12 center-block">
             <div class="form-group">
@@ -43,17 +38,7 @@
             </div>
           </form>
       </div>
-</div>
+    </div>
 
 </div>
-
 </ion-view>
-<script type="text/javascript">
-function show(){
-  alert("hei");
-  document.getElementById('r').innerHTML = "HELLO WORLD";
-}
-</script>
-</body>
-</html>
-
