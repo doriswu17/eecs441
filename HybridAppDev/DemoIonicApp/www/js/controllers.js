@@ -41,15 +41,72 @@ angular.module('starter.controllers', [])
     enableFriends: true
   };
 
+  $scope.userInfo = {
+    username: 'user',
+    email: 'emai',
+    password: 'pass'
+  };
+
   $scope.showSignup = function() {
     $scope.settings.showSignup = true;
   }
+
+  $scope.createUser = function(username,email,password) {
+    console.log("createUser called");
+    console.log("username: " + username)
+    console.log("email: " + email)
+    console.log("password: " + password)
+
+    ParseLogin = Parse.Object.extend("User")
+    // Add something to the user table
+
+
+    var ParseUser = new Parse.User();
+    ParseUser.set("username", "username2")
+    ParseUser.set("password", "pass")
+    ParseUser.set("email", "a@b.com")
+
+    ParseUser.signUp(null, {
+      success: function() {
+        alert("I finally worked");
+      }
+    });
+
+    // var ParseLoginObject = new ParseLogin();
+    // ParseLoginObject.set('username', 'username2')
+    // ParseLoginObject.save(null, {
+    //   success: function(object2){
+    //     alert('successfully saved');
+    //   },
+    //   error: function(err) {
+    //     console.log(err);
+    //   }
+    // });
+
+    // QueryObject = new Parse.Query(ParseLogin);
+    // QueryObject.first({
+    //   success: function(object){
+
+    //     // query the user table
+    //     username1 = object.get('username')
+    //     console.log(username1)
+    //   }
+
+
+    // });
+  }
+
 })
 
 .controller('RegisterCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
+
+  $scope.createUser = function() {
+    console.log("createUser called");
+  }
+
 })
 
 
