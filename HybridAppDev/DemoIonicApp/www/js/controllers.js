@@ -41,15 +41,34 @@ angular.module('starter.controllers', [])
     enableFriends: true
   };
 
+  $scope.userInfo = {
+    username: 'user',
+    email: 'emai',
+    password: 'pass'
+  };
+
   $scope.showSignup = function() {
     $scope.settings.showSignup = true;
   }
+
+  $scope.createUser = function(username,email,password) {
+    console.log("createUser called");
+    console.log("username: " + username)
+    console.log("email: " + email)
+    console.log("password: " + password)
+  }
+
 })
 
 .controller('RegisterCtrl', function($scope) {
   $scope.settings = {
     enableFriends: true
   };
+
+  $scope.createUser = function() {
+    console.log("createUser called");
+  }
+
 })
 
 
