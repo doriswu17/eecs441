@@ -1,9 +1,13 @@
-<ion-view view-title="Account">
+<ion-view view-title="New Post">
   <ion-content>
-    <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
-    </ion-list>
+  <div class="form-group">
+    <input type="text" class="form-control input-lg" placeholder="Class for trade" ng-model="Request.from" style="margin-top:50px"> 
+  	</div>
+  	 <div class="form-group">
+    <input type="text" class="form-control input-lg" placeholder="Class I want" ng-model="Request.to">
+		</div>
+     <button class="btn btn-primary btn-lg btn-block" ng-click="submitRequest(Request.from,Request.to)" style="margin-top:20px">Submit</button>
+    <button class="btn btn-primary btn-lg btn-block">Clear</button>
+ 
   </ion-content>
 </ion-view>
