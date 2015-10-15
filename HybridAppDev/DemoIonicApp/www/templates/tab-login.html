@@ -3,6 +3,7 @@
 <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top:100px">
       <div class="modal-body">
           <form class="form col-md-12 center-block">
+            <div class="list list-inset">
             <div class="form-group">
               <input type="text" class="form-control input-lg" placeholder="Email" ng-model="">
             </div>
@@ -10,8 +11,12 @@
               <input type="password" class="form-control input-lg" placeholder="Password">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-lg btn-block" ng-click="loginUser()">Sign In</button>
-              <button class="btn btn-default" id="r" ng-click="showSignup()">Register</button>
+            </div>
+              <div class="button-bar">
+                        
+              <button class="button button-positive" ng-click="loginUser()">Sign In</button>
+              <button class="button button-clear button-positive" id="r" ng-click="showSignup()">Register</button>
+              </div>
             </div>
           </form>
       </div>
@@ -22,7 +27,7 @@
 
     <div class="container" ng-if="settings.showSignup">
       <div class="modal-body" >
-          <p style="text-align:center">Register</p>
+          <p style="text-align:center">Register</p>         
           <form class="form col-md-12 center-block">
             <div class="form-group">
               <input type="text" class="form-control input-lg" placeholder="User Name" ng-model="userInfo.username">
@@ -34,7 +39,7 @@
               <input type="password" class="form-control input-lg" placeholder="Password" ng-model="userInfo.password">
             </div>
             <div class="form-group">
-              <button class="btn btn-primary btn-lg btn-block" ng-click="createUser(userInfo.username,userInfo.email,userInfo.password)">Sign Up</button>
+              <div class="col col-33 col-offset-67"><button class="button button-positive" ng-click="createUser(userInfo.username,userInfo.email,userInfo.password)">Sign Up</button></div>
             </div>
           </form>
       </div>
