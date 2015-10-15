@@ -62,9 +62,9 @@ angular.module('starter.controllers', [])
 
 
     var ParseUser = new Parse.User();
-    ParseUser.set("username", "username2")
-    ParseUser.set("password", "pass")
-    ParseUser.set("email", "a@b.com")
+    ParseUser.set("username", username)
+    ParseUser.set("password", password)
+    ParseUser.set("email", email)
 
     ParseUser.signUp(null, {
       success: function() {
@@ -111,7 +111,30 @@ angular.module('starter.controllers', [])
 
 
 .controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
+
+  $scope.Request = {
+    from: 'from',
+    to: 'to',
   };
-});
+$scope.submitRequest = function(from,to) {
+    console.log(" called");
+    console.log("username: " + from)
+     console.log("email: " + to)
+    // console.log("password: " + password)
+
+    var ParseRequest = Parse.Object.extend("Request")
+    // Add something to the user table
+
+
+    var ParseRequest1 = new ParseRequest();
+    ParseRequest1.set("from", from)
+    ParseRequest1.set("to", to)
+
+    ParseRequest1.save(null, {
+      success: function() {
+        alert("I finally worked");
+      }
+    });
+
+}
+})
