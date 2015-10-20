@@ -47,6 +47,28 @@ angular.module('starter.controllers', [])
     password: 'pass'
   };
 
+  $scope.loginInfo = {
+    l_username: 'user',
+    l_password: 'pass'
+  };
+
+  $scope.loginUser = function(username,password) {
+    console.log("Login called");
+    console.log("username: " + username)
+    console.log("password: " + password)
+
+    Parse.User.logIn(username, password, {
+      success: function(user) {
+        alert("success");
+        window.location.href="#/tab/dash"
+
+      },
+      error: function(user, error) {
+        alert(":-(");
+      }
+    });
+  }
+
   $scope.showSignup = function() {
     $scope.settings.showSignup = true;
   }
@@ -64,8 +86,12 @@ angular.module('starter.controllers', [])
     ParseUser.set("email", email)
 
     ParseUser.signUp(null, {
-      success: function() {
+      success: function(ParseUser) {
         alert("I finally worked");
+      },
+      error: function(ParseUser, error) {
+        // Show the error message somewhere and let the user try again.
+        alert("Error: " + error.code + " " + error.message);
       }
     });
   }

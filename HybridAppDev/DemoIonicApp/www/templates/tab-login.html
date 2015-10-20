@@ -5,16 +5,16 @@
           <form class="form col-md-12 center-block">
             <div class="list list-inset">
             <div class="form-group">
-              <input type="text" class="form-control input-lg" placeholder="Email" ng-model="">
+              <input type="text" class="form-control input-lg" placeholder="User Name" ng-model="loginInfo.l_username">
             </div>
             <div class="form-group">
-              <input type="password" class="form-control input-lg" placeholder="Password">
+              <input type="password" class="form-control input-lg" placeholder="Password" ng-model="loginInfo.l_password">
             </div>
             <div class="form-group">
             </div>
               <div class="button-bar">
                         
-              <button class="button button-positive" ng-click="loginUser()">Sign In</button>
+              <button class="button button-positive" ng-click="loginUser(loginInfo.l_username, loginInfo.l_password)">Sign In</button>
               <button class="button button-clear button-positive" id="r" ng-click="showSignup()">Register</button>
               </div>
             </div>
