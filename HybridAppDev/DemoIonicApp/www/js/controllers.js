@@ -1,5 +1,5 @@
 //public variables
-var userName = "";
+var glb_userName = "";
 
 angular.module('starter.controllers', [])
 
@@ -57,12 +57,12 @@ angular.module('starter.controllers', [])
 
     Parse.User.logIn(username, password, {
       success: function(user) {
-        alert("success");
+        alert("Log in success!");
+        glb_userName = username;
         window.location.href="#/tab/dash"
-
       },
       error: function(user, error) {
-        alert(":-(");
+        alert(":-( Try again!");
       }
     });
   }
@@ -113,11 +113,12 @@ angular.module('starter.controllers', [])
 
   $scope.Request = {
     holderName: 'holderName',
-    from: 'from',
-    to: 'to',
+    tradeClass: 'tradeClass',
+    from_s: 'from_s',
+    to_s: 'to_s',
   };
   
-  $scope.submitRequest = function(from,to) {
+  $scope.submitRequest = function(c, from, to) {
     console.log(" called");
     console.log("username: " + from)
     console.log("email: " + to)
@@ -128,12 +129,15 @@ angular.module('starter.controllers', [])
 
 
     var ParseRequest1 = new ParseRequest();
-    ParseRequest1.set("from", from)
-    ParseRequest1.set("to", to)
+    ParseRequest1.set("holderName", glb_userName);
+    ParseRequest1.set("tradeClass", c)
+    ParseRequest1.set("from_s", from)
+    ParseRequest1.set("to_s", to)
 
     ParseRequest1.save(null, {
       success: function() {
-        alert("I finally worked");
+        alert("Post success!");
+        window.location.href="#/tab/dash"
       }
     });
   }
