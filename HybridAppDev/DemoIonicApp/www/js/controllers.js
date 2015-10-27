@@ -1,3 +1,6 @@
+//public variables
+var userName = "";
+
 angular.module('starter.controllers', [])
 
 // *** PC: Each route should have it's own controller and the controller can let you do many things
@@ -45,11 +48,6 @@ angular.module('starter.controllers', [])
     username: 'user',
     email: 'emai',
     password: 'pass'
-  };
-
-  $scope.loginInfo = {
-    l_username: 'user',
-    l_password: 'pass'
   };
 
   $scope.loginUser = function(username,password) {
@@ -111,16 +109,18 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('AccountCtrl', function($scope) {
+.controller('newPostCtrl', function($scope) {
 
   $scope.Request = {
+    holderName: 'holderName',
     from: 'from',
     to: 'to',
   };
-$scope.submitRequest = function(from,to) {
+  
+  $scope.submitRequest = function(from,to) {
     console.log(" called");
     console.log("username: " + from)
-     console.log("email: " + to)
+    console.log("email: " + to)
     // console.log("password: " + password)
 
     var ParseRequest = Parse.Object.extend("Request")
@@ -136,6 +136,10 @@ $scope.submitRequest = function(from,to) {
         alert("I finally worked");
       }
     });
+  }
 
-}
 })
+
+
+
+
