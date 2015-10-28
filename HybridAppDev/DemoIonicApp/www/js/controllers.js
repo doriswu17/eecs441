@@ -85,7 +85,7 @@ angular.module('starter.controllers', [])
 
     ParseUser.signUp(null, {
       success: function(ParseUser) {
-        alert("I finally worked");
+        alert("Congratulations! You signed up successfully! ");
       },
       error: function(ParseUser, error) {
         // Show the error message somewhere and let the user try again.
