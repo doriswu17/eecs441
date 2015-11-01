@@ -9,7 +9,24 @@ angular.module('starter.controllers', [])
   // *** PC: Define any variables you want with $scope. $scope is essentially the global variable for
   // this particular controller and this view (html file) but in the HTML, you don't have to write $scope.name
   // to access this variable, instead you just type 'name'. Check out tab-dash.html.
-  $scope.name = "Prateek Sachdeva";
+  
+  var currentuser = Parse.User.current();
+  //alert(currentuser);
+  $scope.name = currentuser.get("username");
+
+  var requestlist = Parse.Object.extend("Request")
+  var query = new Parse.Query(requestlist)
+  query.equalTo("holderName",currentuser.get("username"))
+  query.find({
+    success:function(results){
+      for(var i = 0; i < results.length;i++){
+        var object = results[i];
+        var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div></div></div>");
+        $(".container").append(r);
+      }
+    }
+  });
+
 
   // *** PC: This is how you define functions and since $scope is accessible by the whole controler
   $scope.hello = function() {
@@ -129,17 +146,65 @@ angular.module('starter.controllers', [])
 
 
     var ParseRequest1 = new ParseRequest();
+    var currentuser = Parse.User.current();
+  glb_userName = currentuser.get("username");
     ParseRequest1.set("holderName", glb_userName);
-    ParseRequest1.set("tradeClass", c)
-    ParseRequest1.set("from_s", from)
-    ParseRequest1.set("to_s", to)
+    ParseRequest1.set("tradeClass", c);
+    ParseRequest1.set("from_s", from);
+    ParseRequest1.set("to_s", to);
+    ParseRequest1.set("status", "requesting");
 
-    ParseRequest1.save(null, {
+    var match = Parse.Object.extend("Request");
+    var query = new Parse.Query(match);
+    query.equalTo("tradeClass",c);
+     console.log(query);
+    query.equalTo("from_s",to);
+    query.equalTo("to_s",from);
+    //console.log( query);
+    
+    query.find({
+    success:function(results){
+      if (results.length > 0){
+        for (var i = 0; i < results.length;i++){
+          if (results[i].get("status") == "requesting"){
+            console.log(query);
+      //query.descending("createdAt");
+            console.log(ParseRequest1);
+            ParseRequest1.set("status", "matched");
+            console.log(ParseRequest1);
+            results[i].set("status", "matched");
+            results[i].save(null,{});
+            break;
+          }
+        }
+      }
+      ParseRequest1.save(null, {
       success: function() {
         alert("Post success!");
         window.location.href="#/tab/dash"
       }
     });
+    },
+    error: function(){
+      console.log(query);
+      alert("no match");
+      ParseRequest1.save(null, {
+      success: function() {
+        alert("Post success!");
+        window.location.href="#/tab/dash"
+      }
+    });
+    }
+  });
+
+
+
+    // ParseRequest1.save(null, {
+    //   success: function() {
+    //     alert("Post success!");
+    //     window.location.href="#/tab/dash"
+    //   }
+    // });
   }
 
 })
