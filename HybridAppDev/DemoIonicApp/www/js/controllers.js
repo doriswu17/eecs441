@@ -133,6 +133,7 @@ angular.module('starter.controllers', [])
     tradeClass: 'tradeClass',
     from_s: 'from_s',
     to_s: 'to_s',
+    createdAt: 'createtime',
   };
   
   $scope.submitRequest = function(c, from, to) {
@@ -147,17 +148,38 @@ angular.module('starter.controllers', [])
 
     var ParseRequest1 = new ParseRequest();
     var currentuser = Parse.User.current();
-  glb_userName = currentuser.get("username");
+    var now = Date().toString();
+    glb_userName = currentuser.get("username");
+
     ParseRequest1.set("holderName", glb_userName);
     ParseRequest1.set("tradeClass", c);
     ParseRequest1.set("from_s", from);
     ParseRequest1.set("to_s", to);
     ParseRequest1.set("status", "requesting");
+    ParseRequest1.set("createtime", now);
+
+    //test if the same section has been submitted
+    if (from == to){
+      alert("You cannot switch between the same section");
+      return;
+    }
+    //test if the same request has been submitted
+    var same = Parse.Object.extend("Request");
+    var q = new Parse.Query(same);
+    q.equalTo("tradeClass",c);
+    q.equalTo("from_s",from);
+    q.equalTo("to_s",to);
+    q.equalTo("holderName",glb_userName);
+    q.find({
+      success:function(){
+        alert("You have submitted the request before");
+        return;
+      }
+    });
 
     var match = Parse.Object.extend("Request");
     var query = new Parse.Query(match);
     query.equalTo("tradeClass",c);
-     console.log(query);
     query.equalTo("from_s",to);
     query.equalTo("to_s",from);
     //console.log( query);
