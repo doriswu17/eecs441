@@ -17,7 +17,7 @@ angular.module('starter.controllers', [])
   // to access this variable, instead you just type 'name'. Check out tab-dash.html.
   
   var currentuser = Parse.User.current();
-  //if(currentuser){
+  if(currentuser){
     console.log(currentuser.get("username"));
     $scope.name = currentuser.get("username");
 
@@ -26,13 +26,15 @@ angular.module('starter.controllers', [])
     query.equalTo("holderName",currentuser.get("username"))
     query.find({
       success:function(results){
+        alert(results.length);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
           var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div></div></div>");
-          $(".container1").append(r);
+          $(".container").append(r);
         }
       }
     });
+  }
 
 
 
@@ -64,21 +66,22 @@ angular.module('starter.controllers', [])
 
 
 .controller('LoginCtrl', function($scope) {
-  var currentuser = Parse.User.current();
-  if(currentuser){
-    $scope.settings = {
-      showLogin:  false,
-      showLogout: true,
-      showSignup: false,
-      enableFriends: true
-    };
-  }
-  else {
-    $scope.settings = {
+  $scope.settings = {
       showLogin:  true,
       showLogout: false,
       showSignup: false
-    };
+      };
+  var currentuser1 = Parse.User.current();
+  if(currentuser1){
+    $scope.settings.showSignup = false;
+    $scope.settings.showLogin = false;
+    $scope.settings.showLogout = true;
+    alert($scope.settings.showLogout);
+  }
+  else {
+    $scope.settings.showSignup = false;
+    $scope.settings.showLogin = true;
+    $scope.settings.showLogout = false;
   }
 
   $scope.userInfo = {
@@ -97,12 +100,9 @@ angular.module('starter.controllers', [])
         alert("Log in success!");
         glb_userName = username;
         window.location.href="#/tab/dash";
-        $scope.settings = {
-          showLogin:  false,
-          showLogout: true,
-          showSignup: false,
-          enableFriends: true
-        };
+        $scope.settings.showSignup = false;
+        $scope.settings.showLogin = false;
+        $scope.settings.showLogout = true;
       },
       error: function(user, error) {
         alert(":-( Try again!");
@@ -112,11 +112,9 @@ angular.module('starter.controllers', [])
 
   $scope.logoutUser = function(){
     alert("logout")
-    $scope.settings = {
-      showLogout: false,
-      showLogin:  true,
-      showSignup: false
-    };
+    $scope.settings.showSignup = false;
+    $scope.settings.showLogin = true;
+    $scope.settings.showLogout = false;
     Parse.User.logOut();
   }
 
