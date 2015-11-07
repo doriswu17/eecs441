@@ -1,37 +1,45 @@
 //public variables
 var glb_userName = "";
 
+
+
 angular.module('starter.controllers', [])
 
 // *** PC: Each route should have it's own controller and the controller can let you do many things
 // The view files will interact with the controller and the controller will interact with the model.
 .controller('DashCtrl', function($scope) {
+  //if(currentuser){
+   // $scope.settings = {
+     // showLogout: true
+    //};
   // *** PC: Define any variables you want with $scope. $scope is essentially the global variable for
   // this particular controller and this view (html file) but in the HTML, you don't have to write $scope.name
   // to access this variable, instead you just type 'name'. Check out tab-dash.html.
   
   var currentuser = Parse.User.current();
-  //alert(currentuser);
-  $scope.name = currentuser.get("username");
+  //if(currentuser){
+    console.log(currentuser.get("username"));
+    $scope.name = currentuser.get("username");
 
-  var requestlist = Parse.Object.extend("Request")
-  var query = new Parse.Query(requestlist)
-  query.equalTo("holderName",currentuser.get("username"))
-  query.find({
-    success:function(results){
-      for(var i = 0; i < results.length;i++){
-        var object = results[i];
-        var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div></div></div>");
-        $(".container").append(r);
+    var requestlist = Parse.Object.extend("Request")
+    var query = new Parse.Query(requestlist)
+    query.equalTo("holderName",currentuser.get("username"))
+    query.find({
+      success:function(results){
+        for(var i = 0; i < results.length;i++){
+          var object = results[i];
+          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div></div></div>");
+          $(".container1").append(r);
+        }
       }
-    }
-  });
+    });
+
 
 
   // *** PC: This is how you define functions and since $scope is accessible by the whole controler
-  $scope.hello = function() {
-    alert("Hello. How are you " + $scope.name);
-  }
+  // $scope.hello = function() {
+  //   alert("Hello. How are you " + $scope.name);
+  // }
 })
 
 .controller('ChatsCtrl', function($scope, Chats) {
@@ -56,10 +64,22 @@ angular.module('starter.controllers', [])
 
 
 .controller('LoginCtrl', function($scope) {
-  $scope.settings = {
-    showSignup: false,
-    enableFriends: true
-  };
+  var currentuser = Parse.User.current();
+  if(currentuser){
+    $scope.settings = {
+      showLogin:  false,
+      showLogout: true,
+      showSignup: false,
+      enableFriends: true
+    };
+  }
+  else {
+    $scope.settings = {
+      showLogin:  true,
+      showLogout: false,
+      showSignup: false
+    };
+  }
 
   $scope.userInfo = {
     username: 'user',
@@ -76,13 +96,31 @@ angular.module('starter.controllers', [])
       success: function(user) {
         alert("Log in success!");
         glb_userName = username;
-        window.location.href="#/tab/dash"
+        window.location.href="#/tab/dash";
+        $scope.settings = {
+          showLogin:  false,
+          showLogout: true,
+          showSignup: false,
+          enableFriends: true
+        };
       },
       error: function(user, error) {
         alert(":-( Try again!");
       }
     });
   }
+
+  $scope.logoutUser = function(){
+    alert("logout")
+    $scope.settings = {
+      showLogout: false,
+      showLogin:  true,
+      showSignup: false
+    };
+    Parse.User.logOut();
+  }
+
+
 
   $scope.showSignup = function() {
     $scope.settings.showSignup = true;
