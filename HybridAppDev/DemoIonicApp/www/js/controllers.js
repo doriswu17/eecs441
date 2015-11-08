@@ -5,6 +5,15 @@ var glb_userName = "";
 
 angular.module('starter.controllers', [])
 
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    setTimeout(function() {
+        navigator.splashscreen.hide();
+    }, 300);
+ });
+})
+
+
 // *** PC: Each route should have it's own controller and the controller can let you do many things
 // The view files will interact with the controller and the controller will interact with the model.
 .controller('DashCtrl', function($scope) {
