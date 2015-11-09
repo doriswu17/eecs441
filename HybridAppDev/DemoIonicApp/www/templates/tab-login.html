@@ -1,4 +1,4 @@
-<ion-view view-title="Login">
+<ion-view view-title="Account">
 
 <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top:100px">
       <div class="container" ng-if="settings.showLogin">
@@ -15,8 +15,8 @@
             </div>
               <div class="button-bar">
                         
-              <button class="button button-positive" ng-click="loginUser(loginInfo.l_username, loginInfo.l_password)">Sign In</button>
-              <button class="button button-clear button-positive" id="r" ng-click="showSignup()">Register</button>
+              <button class="button button-energized" ng-click="loginUser(loginInfo.l_username, loginInfo.l_password)">Sign In</button>
+              <button class="button button-positive" id="r" ng-click="showSignup()">Register</button>
               </div>
             </div>
           </form>
@@ -27,12 +27,15 @@
       </div>  
       </div>
 
+
     <div class="container" ng-if="settings.showSignup">
-      <div class="modal-body" >
-          <p style="text-align:center">Register</p>         
+<!--       <div class="modal-body" >
+ -->          <div class="bar bar-header bar-stable" style="margin-top:200px">
+            <h1 class="title">Register</h1>
+          </div>         
           <form class="form col-md-12 center-block">
             
-            <div class="form-group">
+            <div class="form-group" style="margin-top:50px">
               <input type="text" class="form-control input-lg" placeholder="User Name" ng-model="userInfo.username">
             </div>
             <div class="form-group">
@@ -42,19 +45,29 @@
               <input type="password" class="form-control input-lg" placeholder="Password" ng-model="userInfo.password">
             </div>
             <div class="form-group">
-              <div class="col col-33 col-offset-67"><button class="button button-positive" ng-click="createUser(userInfo.username,userInfo.email,userInfo.password)">Sign Up</button></div>
+              <div class="col col-33 col-offset-67"><button class="button button-energized" ng-click="createUser(userInfo.username,userInfo.email,userInfo.password)">Sign Up</button></div>
             </div>
 
           </form>
-      </div>
-    </div>
+<!--       </div>
+ -->    </div>
+
+
 
      
   <div ng-if="settings.showLogout">
-      <div class="modal-body" style="margin-top:100px" ng-click="logoutUser()">
-          <h4>LOG OUT</h4>
+    <div class="row">
+      <div class="col col-center"><p style="text-align:center">You have already logged in!</p>
       </div>
     </div>
+      <div class="modal-body" style="margin-top:100px" ng-click="logoutUser()">
+        <div class="row">
+          <button class="button button-light col col-center" style="text-align:center">
+            LOG OUT
+          </button>
+        </div>
+        </div>
+  </div>
 
 </div>
 </ion-view>

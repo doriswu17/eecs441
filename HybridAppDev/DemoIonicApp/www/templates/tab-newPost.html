@@ -1,6 +1,6 @@
 <ion-view view-title="New Post">
   <ion-content>
-  <div class="list list-inset">
+  <div class="list list-inset" ng-if="settings.showRequest">
     
     <div class="GetIn">
       <div class="item item-divider">I want to GET INTO</div>
@@ -53,7 +53,7 @@
   
   </div>
   
-  <div class="button-bar">
+  <div class="button-bar" ng-if="settings.showRequest">
     <button class="button button-positive" ng-click="submitRequest(Request.tradeClass, Request.from_s,Request.to_s)" style="margin-top:20px">
       Submit
     </button>
@@ -62,6 +62,10 @@
       Clear
     </button>-->
   </div>
+
+   <div ng-if="settings.showwarning" style="text-align:center">
+      Please Log In First! 
+    </div>
  
   </ion-content>
 </ion-view>

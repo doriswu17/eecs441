@@ -17,16 +17,21 @@ angular.module('starter.controllers', [])
 // *** PC: Each route should have it's own controller and the controller can let you do many things
 // The view files will interact with the controller and the controller will interact with the model.
 .controller('DashCtrl', function($scope) {
-  //if(currentuser){
-   // $scope.settings = {
-     // showLogout: true
-    //};
+
   // *** PC: Define any variables you want with $scope. $scope is essentially the global variable for
   // this particular controller and this view (html file) but in the HTML, you don't have to write $scope.name
   // to access this variable, instead you just type 'name'. Check out tab-dash.html.
-  
+  $scope.settings = {
+      showGreeting:  false,
+      showreminder: true
+    };
   var currentuser = Parse.User.current();
   if(currentuser){
+
+    $scope.settings.showGreeting = true;
+    $scope.settings.showreminder = false;
+
+
     console.log(currentuser.get("username"));
     $scope.name = currentuser.get("username");
 
@@ -35,7 +40,7 @@ angular.module('starter.controllers', [])
     query.equalTo("holderName",currentuser.get("username"))
     query.find({
       success:function(results){
-        alert(results.length);
+        //alert(results.length);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
           var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div></div></div>");
@@ -44,9 +49,9 @@ angular.module('starter.controllers', [])
       }
     });
   }
-
-
-
+  else{
+    $scope.settings.showGreeting = false;
+  }
   // *** PC: This is how you define functions and since $scope is accessible by the whole controler
   // $scope.hello = function() {
   //   alert("Hello. How are you " + $scope.name);
@@ -85,7 +90,6 @@ angular.module('starter.controllers', [])
     $scope.settings.showSignup = false;
     $scope.settings.showLogin = false;
     $scope.settings.showLogout = true;
-    alert($scope.settings.showLogout);
   }
   else {
     $scope.settings.showSignup = false;
@@ -94,9 +98,9 @@ angular.module('starter.controllers', [])
   }
 
   $scope.userInfo = {
-    username: 'user',
-    email: 'emai',
-    password: 'pass'
+    username: '',
+    email: '',
+    password: ''
   };
 
   $scope.loginUser = function(username,password) {
@@ -109,6 +113,9 @@ angular.module('starter.controllers', [])
         alert("Log in success!");
         glb_userName = username;
         window.location.href="#/tab/dash";
+
+        window.location.reload(true);
+
         $scope.settings.showSignup = false;
         $scope.settings.showLogin = false;
         $scope.settings.showLogout = true;
@@ -120,11 +127,17 @@ angular.module('starter.controllers', [])
   }
 
   $scope.logoutUser = function(){
-    alert("logout")
+    alert("You have logged out!")
+    Parse.User.logOut();
+    window.location.href="#/tab/dash";
+
+    window.location.reload(true);
+
+
     $scope.settings.showSignup = false;
     $scope.settings.showLogin = true;
     $scope.settings.showLogout = false;
-    Parse.User.logOut();
+
   }
 
 
@@ -148,6 +161,9 @@ angular.module('starter.controllers', [])
     ParseUser.signUp(null, {
       success: function(ParseUser) {
         alert("Congratulations! You signed up successfully! ");
+        window.location.href="#/tab/dash";
+
+        window.location.reload(true);
       },
       error: function(ParseUser, error) {
         // Show the error message somewhere and let the user try again.
@@ -180,7 +196,22 @@ angular.module('starter.controllers', [])
     to_s: 'to_s',
     createdAt: 'createtime',
   };
-  
+
+  $scope.settings = {
+      showRequest:  false,
+      showwarning: true
+  };
+
+  var currentuser = Parse.User.current();
+  if(currentuser){
+    $scope.settings.showRequest = true;
+
+    $scope.settings.showwarning = false;//
+
+
+  }
+  //window.location.reload(true);
+
   $scope.submitRequest = function(c, from, to) {
     console.log(" called");
     console.log("username: " + from)

@@ -1,9 +1,12 @@
 <ion-view view-title="MTrade">
   <ion-content class="padding">
-        <div>
+        <div ng-if="settings.showGreeting">
           <h4>Hi, <b>{{name}}</b></h4>
         </div>
-    <div class = "container" role = "listbox"></div>
+    <div class= "container" role= "listbox" ng-if="settings.showGreeting"></div>
+    <div ng-if="settings.showreminder" style="text-align:center">
+      Please Log In First! 
+    </div>
     <!-- <div class="list card">
       <div class="item item-divider">Request 1</div>
       <div class="item item-body">

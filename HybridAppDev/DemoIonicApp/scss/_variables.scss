@@ -1,6 +1,9 @@
 // Declare variables
 $red: #332ASD;
 $border-radius: 4px;
+$stable: #ff9666 !default;
+$positive: #444 !default;
+
 
 // Declare mixins like this (accept any number of parameters)
 @mixin border-radius($radius) {
