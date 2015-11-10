@@ -43,7 +43,7 @@ angular.module('starter.controllers', [])
         //alert(results.length);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
-          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div> <p>Request status: " +object.get("status") +"</p></div></div>");
+          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div> <p>Request status: " +object.get("status") +"</p> <p> Your matched person's name is: <br>"+ object.get("matchusername") + " and email is: "+ object.get("matchuseremail") + "</p></div></div>" );
           $(".container").append(r);
         }
       }
@@ -195,6 +195,8 @@ angular.module('starter.controllers', [])
     from_s: 'from_s',
     to_s: 'to_s',
     createdAt: 'createtime',
+    matchusername: 'matchusername',
+    matchuseremail: 'matchuseremail'
   };
 
   $scope.settings = {
@@ -213,6 +215,8 @@ angular.module('starter.controllers', [])
   //window.location.reload(true);
 
   $scope.submitRequest = function(c, from, to) {
+    $scope.before = false;
+    alert("i am called")
     console.log(" called");
     console.log("username: " + from)
     console.log("email: " + to)
@@ -240,20 +244,22 @@ angular.module('starter.controllers', [])
       return;
     }
     //test if the same request has been submitted
-    var same = Parse.Object.extend("Request");
-    var q = new Parse.Query(same);
+    //var same = Parse.Object.extend("Request");
+    var q = new Parse.Query(ParseRequest);
     q.equalTo("tradeClass",c);
     q.equalTo("from_s",from);
     q.equalTo("to_s",to);
     q.equalTo("holderName",glb_userName);
     q.find({
-      success:function(){
-        alert("You have submitted the request before");
-        return;
-      }
-    });
 
-    var match = Parse.Object.extend("Request");
+      success:function(results){
+        console.log(results.length)
+        if(results.length > 0){
+        alert("You have submitted the request before");
+          $scope.before = true;
+          return;   
+        }
+        var match = Parse.Object.extend("Request");
     var query = new Parse.Query(match);
     query.equalTo("tradeClass",c);
     query.equalTo("from_s",to);
@@ -269,17 +275,35 @@ angular.module('starter.controllers', [])
       //query.descending("createdAt");
             console.log(ParseRequest1);
             ParseRequest1.set("status", "matched");
+            ParseRequest1.set("matchusername",results[i].get("holderName"))
+            
+            var query = new Parse.Query(Parse.User);
+            query.equalTo("username", glb_userName);
+            query.find({
+              success:function(results){
+                  alert(results[0].get("username"),results[0].get("email"));
+                  var object = results[0];
+                  ParseRequest1.set("matchuseremail",object.get("email"))
+              }
+            });
+
             console.log(ParseRequest1);
             results[i].set("status", "matched");
+            results[i].set("matchusername",glb_userName);
+            var cuser = Parse.User.current();
+            results[i].set("matchuseremail",cuser.get("email"))
             results[i].save(null,{});
+
             break;
           }
         }
       }
       ParseRequest1.save(null, {
       success: function() {
-        alert("Post success!");
-        window.location.href="#/tab/dash"
+        alert("Post success 1!");
+        window.location.href="#/tab/dash";
+                window.location.reload(true);
+
       }
     });
     },
@@ -288,21 +312,16 @@ angular.module('starter.controllers', [])
       alert("no match");
       ParseRequest1.save(null, {
       success: function() {
-        alert("Post success!");
-        window.location.href="#/tab/dash"
+        alert("Post success 2 !");
+        window.location.href="#/tab/dash";
+                window.location.reload(true);
       }
     });
     }
-  });
+  }); // query find
+      }
+    });
 
-
-
-    // ParseRequest1.save(null, {
-    //   success: function() {
-    //     alert("Post success!");
-    //     window.location.href="#/tab/dash"
-    //   }
-    // });
   }
 
 })
