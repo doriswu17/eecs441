@@ -43,7 +43,7 @@ angular.module('starter.controllers', [])
         //alert(results.length);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
-          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div></div></div>");
+          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div> <p>Request status: " +object.get("status") +"</p></div></div>");
           $(".container").append(r);
         }
       }
