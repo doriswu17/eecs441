@@ -40,12 +40,20 @@ angular.module('starter.controllers', [])
     query.equalTo("holderName",currentuser.get("username"))
     query.find({
       success:function(results){
+        if (results.length == 0){
+          var r = $("<div> You haven't posted any request yet!</div>");
+           $(".container").append(r);
+        }
         //alert(results.length);
+        else{
+          var a = $("<div> Here are your submitted requests: </div>");
+           $(".container").append(a);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
-          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "</div><div class='item item-body'><div> Trade "+ object.get("tradeClass") +" "+ object.get("from_s") + " for " + object.get("to_s") + "</div> <p>Request status: " +object.get("status") +"</p> <p> Your matched person's name is: <br>"+ object.get("matchusername") + " and email is: "+ object.get("matchuseremail") + "</p></div></div>" );
+          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p> submission time: "+ object.get("createtime").substring(0,25) +"</p></div><div class='item item-body'><div> From: <br><center><b>"+ object.get("tradeClass") + " "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") +"</b></p> <p> Your matched person's name is: <b>"+ object.get("matchusername") + "</b></p>  <p>Contact email is: <b>"+ object.get("matchuseremail") + "</b></p></div></div>" );
           $(".container").append(r);
         }
+      }
       }
     });
   }
@@ -100,7 +108,8 @@ angular.module('starter.controllers', [])
   $scope.userInfo = {
     username: '',
     email: '',
-    password: ''
+    password: '',
+    verifypassword: ''
   };
 
   $scope.loginUser = function(username,password) {
@@ -146,30 +155,71 @@ angular.module('starter.controllers', [])
     $scope.settings.showSignup = true;
   }
 
-  $scope.createUser = function(username,email,password) {
+  $scope.createUser = function(username,email,password,verifypassword) {
     console.log("createUser called");
     console.log("username: " + username)
     console.log("email: " + email)
     console.log("password: " + password)
    // ParseLogin = Parse.Object.extend("User");
     // Add something to the user table
+    if (username.length < 3){
+      alert("Please pick a longer username.");
+      return;
+    }
+    if (password.length < 7){
+      alert("Password is too short, should be longer than 8 chars.");
+      return;
+    }
+    if(password != verifypassword){
+      alert("Verify Password is different from Password.");
+    }
     var ParseUser = new Parse.User();
     ParseUser.set("username", username)
     ParseUser.set("password", password)
     ParseUser.set("email", email)
 
-    ParseUser.signUp(null, {
-      success: function(ParseUser) {
-        alert("Congratulations! You signed up successfully! ");
-        window.location.href="#/tab/dash";
+    var q = new Parse.Query(Parse.User);
+    var n = username;
+    q.equalTo("username", n);
+    var q1 = new Parse.Query(Parse.User);
+    q1.equalTo("email",email);
 
-        window.location.reload(true);
-      },
-      error: function(ParseUser, error) {
+    var mainq = Parse.Query.or(q,q1);
+    mainq.find({
+      success: function(results){
+        if (results.length){
+          alert("The username/password has been used. Please try another one.");
+        }
+        else{
+          ParseUser.signUp(null, {
+             success: function(ParseUser) {
+              alert("Congratulations! You signed up successfully! ");
+              window.location.href="#/tab/dash";
+
+              window.location.reload(true);
+               },
+              error: function(ParseUser, error) {
         // Show the error message somewhere and let the user try again.
-        alert("Error: " + error.code + " " + error.message);
+              alert("Error: " + error.code + " " + error.message);
+          }
+          });
+        }
       }
-    });
+    })
+
+
+    // ParseUser.signUp(null, {
+    //   success: function(ParseUser) {
+    //     alert("Congratulations! You signed up successfully! ");
+    //     window.location.href="#/tab/dash";
+
+    //     window.location.reload(true);
+    //   },
+    //   error: function(ParseUser, error) {
+    //     // Show the error message somewhere and let the user try again.
+    //     alert("Error: " + error.code + " " + error.message);
+    //   }
+    // });
   }
 
 
@@ -277,13 +327,20 @@ angular.module('starter.controllers', [])
             ParseRequest1.set("status", "matched");
             ParseRequest1.set("matchusername",results[i].get("holderName"))
             
-            var query = new Parse.Query(Parse.User);
-            query.equalTo("username", glb_userName);
-            query.find({
-              success:function(results){
-                  alert(results[0].get("username"),results[0].get("email"));
-                  var object = results[0];
+            var query1 = new Parse.Query(Parse.User);
+            var n = String(results[i].get("holderName"));
+            console.log(n);
+            query1.equalTo("username", n);
+           
+            query1.find({
+              success:function(musers){
+                console.log(musers.length);
+                console.log(musers[0].get("email"));
+                  //alert("length:", musers.length);
+                  //alert("what we have here: ",musers[0].get("username"),musers[0].get("email"));
+                  var object = musers[0];
                   ParseRequest1.set("matchuseremail",object.get("email"))
+                  ParseRequest1.save(null, {});
               }
             });
 

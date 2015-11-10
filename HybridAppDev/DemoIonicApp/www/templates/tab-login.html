@@ -1,6 +1,6 @@
 <ion-view view-title="Account">
 
-<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top:100px">
+<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true" style="margin-top:80px">
       <div class="container" ng-if="settings.showLogin">
       <div class="modal-body">
           <form class="form col-md-12 center-block">
@@ -43,6 +43,9 @@
             </div>
             <div class="form-group">
               <input type="password" class="form-control input-lg" placeholder="Password" ng-model="userInfo.password">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control input-lg" placeholder="Verify Password" ng-model="userInfo.verifypassword">
             </div>
             <div class="form-group">
               <div class="col col-33 col-offset-67"><button class="button button-energized" ng-click="createUser(userInfo.username,userInfo.email,userInfo.password)">Sign Up</button></div>
