@@ -188,7 +188,7 @@ angular.module('starter.controllers', [])
     mainq.find({
       success: function(results){
         if (results.length){
-          alert("The username/password has been used. Please try another one.");
+          alert("The username/email has been used. Please try another one.");
         }
         else{
           ParseUser.signUp(null, {
@@ -266,7 +266,6 @@ angular.module('starter.controllers', [])
 
   $scope.submitRequest = function(c, from, to) {
     $scope.before = false;
-    alert("i am called")
     console.log(" called");
     console.log("username: " + from)
     console.log("email: " + to)
@@ -357,7 +356,7 @@ angular.module('starter.controllers', [])
       }
       ParseRequest1.save(null, {
       success: function() {
-        alert("Post success 1!");
+        alert("Post success!");
         window.location.href="#/tab/dash";
                 window.location.reload(true);
 
@@ -366,10 +365,10 @@ angular.module('starter.controllers', [])
     },
     error: function(){
       console.log(query);
-      alert("no match");
+      alert("No Match");
       ParseRequest1.save(null, {
       success: function() {
-        alert("Post success 2 !");
+        alert("Post success!");
         window.location.href="#/tab/dash";
                 window.location.reload(true);
       }
