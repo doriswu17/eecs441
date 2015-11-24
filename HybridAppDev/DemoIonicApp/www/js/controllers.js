@@ -66,12 +66,48 @@ angular.module('starter.controllers', [])
   // }
 })
 
-.controller('ChatsCtrl', function($scope, Chats) {
+.controller('InsiderCtrl', function($scope) {
+  var currentuser = Parse.User.current();
+  $scope.select = {
+    classname: ''
+  }
+  $scope.settings = {
+      showreminder: true,
+      showGreeting: false
+    };
+  if(currentuser){
+    $scope.settings.showreminder = false;
+    $scope.settings.showGreeting = true;
+  }
+  else{
+    $scope.settings.showreminder = true;
+    $scope.settings.showGreeting = false;
+  }
+
+  $scope.showinfo = function(classname){
+    $( ".container" ).empty();
+    var name = $scope.select.classname;
+
+    var r = $("<p style = 'margin-left: 20px'>Class Name: <b>" + name+ "</b></p><p></p>");
+    $(".container").append(r);
+    var requestlist = Parse.Object.extend("Request")
+    var query = new Parse.Query(requestlist)
+    query.equalTo("tradeClass",name)
+    query.equalTo("status","requesting")
+    query.find({
+      success:function(results){
+        var totalnum = results.length;
+        var r = $("<p> Number of people looking for match: " + totalnum + "</p>")
+        $(".container").append(r);       
+      }
+    });
+    
+  }
   // *** PC: You can call class functions for any factory (check out services.js).
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
-  };
+  // $scope.chats = Chats.all();
+  // $scope.remove = function(chat) {
+  //   Chats.remove(chat);
+  // };
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
