@@ -42,16 +42,16 @@ angular.module('starter.controllers', [])
       success:function(results){
         if (results.length == 0){
           var r = $("<div> You haven't posted any request yet!</div>");
-           $(".container").append(r);
+           $("#c").append(r);
         }
         //alert(results.length);
         else{
           var a = $("<div> Here are your submitted requests: </div>");
-           $(".container").append(a);
+           $("#c").append(a);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
           var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p> submission time: "+ object.get("createtime").substring(0,25) +"</p></div><div class='item item-body'><div> From: <br><center><b>"+ object.get("tradeClass") + " "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") +"</b></p> <p> Your matched person's name is: <b>"+ object.get("matchusername") + "</b></p>  <p>Contact email is: <b>"+ object.get("matchuseremail") + "</b></p></div></div>" );
-          $(".container").append(r);
+          $("#c").append(r);
         }
       }
       }
@@ -85,11 +85,11 @@ angular.module('starter.controllers', [])
   }
 
   $scope.showinfo = function(classname){
-    $( ".container" ).empty();
+    $( "#c1" ).empty();
     var name = $scope.select.classname;
 
     var r = $("<p style = 'margin-left: 20px'>Class Name: <b>" + name+ "</b></p><p></p>");
-    $(".container").append(r);
+    $("#c1").append(r);
     var requestlist = Parse.Object.extend("Request")
     var query = new Parse.Query(requestlist)
     query.equalTo("tradeClass",name)
@@ -98,7 +98,7 @@ angular.module('starter.controllers', [])
       success:function(results){
         var totalnum = results.length;
         var r = $("<p> Number of people looking for match: " + totalnum + "</p>")
-        $(".container").append(r);       
+        $("#c1").append(r);       
       }
     });
     
