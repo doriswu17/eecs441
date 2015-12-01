@@ -293,12 +293,54 @@ angular.module('starter.controllers', [])
   var currentuser = Parse.User.current();
   if(currentuser){
     $scope.settings.showRequest = true;
-
     $scope.settings.showwarning = false;//
-
-
   }
   //window.location.reload(true);
+
+  var courselist = Parse.Object.extend("Course")
+  var query = new Parse.Query(courselist)
+  query.find({
+    success:function(results){
+      if (results.length == 0){
+        //var r = $("<div>No Class Active!</div>");
+        //$("#c").append(r);
+      }
+      
+      else{
+        for(var i = 0; i < results.length; i++){
+          var object = results[i];
+          var r = $("<option value="+object.get("courseName")+">"+object.get("courseName")+"</option>");
+          $("#b").append(r);
+        }
+      }
+    }
+  });
+
+  //var e = document.getElementById("b");
+  //alert(e);
+  //var selectedClass = e.options[e.selectedIndex].value;
+  //alert(selectedClass);
+  // var course = Parse.Object.extend("Course")
+  // var query2 = new Parse.Query(course)
+  // query2.equalTo("courseName", selectedClass);
+  // query2.find({
+  //   success:function(results){
+  //     if (results.length == 0){
+  //       //var r = $("<div>No Class Active!</div>");
+  //       //$("#c").append(r);
+  //     }
+      
+  //     else{
+  //       var maxSection = results[0].get("secNum");
+  //       for(var i = 1; i < maxSection; i++){
+  //         var r = $("<option value="+i+">"+i+"</option>");
+  //         $("#b1").append(r);
+  //         $("#b2").append(r);
+  //       }
+  //     }
+  //   }
+  // });
+
 
   $scope.submitRequest = function(c, from, to) {
     $scope.before = false;

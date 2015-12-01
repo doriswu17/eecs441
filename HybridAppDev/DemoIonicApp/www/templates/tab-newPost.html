@@ -1,25 +1,32 @@
 <ion-view view-title="New Post">
   <ion-content>
   <div class="card" ng-if="settings.showRequest">
+
+    <div class="GetIn">
+      <div class="item item-divider">Class: </div>
+      <div class="item item-body">
+        <div>
+          <label class="item item-select">
+            <p>Class: </p>
+        <select name="singleSelect" id = "b" ng-model="Request.tradeClass">
+          <option value="default" selected="selected" >--Please Select Class---</option>
+          <!-- <option value="ENG 101">ENG 101</option>
+          <option value="EECS 441">EECS 441</option>
+          <option value="STATS 250">STATS 250</option> -->
+        </select><br></label>
+      </div>
+    </div>
     
     <div class="GetIn">
       <div class="item item-divider">I want to GET INTO</div>
       <div class="item item-body">
         <div>
           <label class="item item-select">
-            <p>Class: </p>
-        <select name="singleSelect" ng-model="Request.tradeClass">
-          <option value="ENG 101">ENG 101</option>
-          <option value="EECS 441">EECS 441</option>
-          <option value="STATS 250">STATS 250</option>
-        </select><br></label>
-       
-        <label class="item item-select">
            <p>Section: </p>
-        <select name="singleSelect" ng-model="Request.from_s">
-          <option value="sec-1">section 1</option>
+          <select name="singleSelect" id = "b1" ng-model="Request.from_s">
+          <!-- <option value="sec-1">section 1</option>
           <option value="sec-2">section 2</option>
-          <option value="sec-3">section 3</option>
+          <option value="sec-3">section 3</option> -->
         </select><br></label>
         </div>
       </div>
@@ -29,34 +36,16 @@
       <div class="item item-divider">I will GET OUT FROM</div>
       <div class="item item-body">
         <div>
-       
-        <label class="item item-select">
-           <p>Class:</p>
-        <select name="singleSelect" ng-model="Request.tradeClass">
-          <option value="ENG 101">ENG 101</option>
-          <option value="EECS 441">EECS 441</option>
-          <option value="STATS 250">STATS 250</option>
-        </select><br></label>
-        
         <label class="item item-select">
           <p>Section:</p>
-        <select name="singleSelect" ng-model="Request.to_s">
-          <option value="sec-1">section 1</option>
+        <select name="singleSelect" id = "b2" ng-model="Request.to_s">
+          <!-- <option value="sec-1">section 1</option>
           <option value="sec-2">section 2</option>
-          <option value="sec-3">section 3</option>
+          <option value="sec-3">section 3</option> -->
         </select><br></label>
         </div>
       </div>
     </div>
-
-
-    <!--<div class="form-group">
-      <input type="text" class="form-control input-lg" placeholder="Class for trade" ng-model="Request.from" style="margin-top:50px"> 
-  	</div>
-  	
-    <div class="form-group">
-      <input type="text" class="form-control input-lg" placeholder="Class I want" ng-model="Request.to">
-		</div>-->
   
   </div>
   
@@ -64,10 +53,7 @@
     <button class="button button-positive" ng-click="submitRequest(Request.tradeClass, Request.from_s,Request.to_s)" style="margin-top:20px">
       Submit
     </button>
-    
-    <!--<button class="button button-positive" ng-click="clearRequest()" style="margin-top:20px">
-      Clear
-    </button>-->
+
   </div>
 
    <div ng-if="settings.showwarning" style="text-align:center">
