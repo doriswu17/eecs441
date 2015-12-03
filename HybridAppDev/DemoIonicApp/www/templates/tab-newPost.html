@@ -8,8 +8,11 @@
         <div>
           <label class="item item-select">
             <p>Class: </p>
-        <select name="singleSelect" id = "b" ng-model="Request.tradeClass">
-          <option value="default" selected="selected" >--Please Select Class---</option>
+        <select name="singleSelect" id = "b" ng-model="Request.tradeClass" ng-change="showSelectValue(Request.tradeClass)">
+          <!-- <select ng-init="somethingHere = options[0]" 
+        ng-model="somethingHere" 
+        ng-options="option.name for option in options">
+        </select> -->
           <!-- <option value="ENG 101">ENG 101</option>
           <option value="EECS 441">EECS 441</option>
           <option value="STATS 250">STATS 250</option> -->
@@ -23,7 +26,7 @@
         <div>
           <label class="item item-select">
            <p>Section: </p>
-          <select name="singleSelect" id = "b1" ng-model="Request.from_s">
+          <select name="singleSelect" id = "d" ng-model="Request.from_s">
           <!-- <option value="sec-1">section 1</option>
           <option value="sec-2">section 2</option>
           <option value="sec-3">section 3</option> -->
@@ -38,7 +41,7 @@
         <div>
         <label class="item item-select">
           <p>Section:</p>
-        <select name="singleSelect" id = "b2" ng-model="Request.to_s">
+        <select name="singleSelect" id = "e" ng-model="Request.to_s">
           <!-- <option value="sec-1">section 1</option>
           <option value="sec-2">section 2</option>
           <option value="sec-3">section 3</option> -->

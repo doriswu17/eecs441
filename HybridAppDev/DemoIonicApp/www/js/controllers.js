@@ -290,6 +290,15 @@ angular.module('starter.controllers', [])
       showwarning: true
   };
 
+  $scope.getSeletedText = function(elementId){
+    var elt = document.getElementById(elementId);
+
+    if (elt.selectedIndex == -1)
+        return null;
+
+    return elt.options[elt.selectedIndex].text;
+  }
+
   var currentuser = Parse.User.current();
   if(currentuser){
     $scope.settings.showRequest = true;
@@ -316,8 +325,60 @@ angular.module('starter.controllers', [])
     }
   });
 
-  //var e = document.getElementById("b");
-  //alert(e);
+  $scope.showSelectValue = function(mySelect) {
+    alert(mySelect);
+    var course = Parse.Object.extend("Course")
+    var query2 = new Parse.Query(course)
+    query2.equalTo("courseName", mySelect);
+    query2.find({
+      success:function(results){
+        if (results.length == 0){
+          //var r = $("<div>No Class Active!</div>");
+          //$("#c").append(r);
+        }
+        
+        else{
+          var maxSection = results[0].get("secNum");
+          //alert(maxSection)
+          $("#d").empty();
+          for(var i = 1; i < maxSection + 1; i++){
+            //alert(i)
+            var r = $("<option value="+i+">"+i+"</option>");
+
+            $("#d").append(r);
+          }
+        }
+      }
+    });
+
+    var query3 = new Parse.Query(course)
+    query3.equalTo("courseName", mySelect);
+    query3.find({
+      success:function(results){
+        if (results.length == 0){
+          //var r = $("<div>No Class Active!</div>");
+          //$("#c").append(r);
+        }
+        
+        else{
+          var maxSection = results[0].get("secNum");
+          $("#e").empty();
+          for(var i = 1; i < maxSection + 1; i++){
+            var p = $("<option value="+i+">"+i+"</option>");
+            $("#e").append(p);
+          }
+        }
+      }
+    });
+
+
+
+
+
+  }
+
+  //var text = getSeletedText('b');
+  //alert(text);
   //var selectedClass = e.options[e.selectedIndex].value;
   //alert(selectedClass);
   // var course = Parse.Object.extend("Course")
