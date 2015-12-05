@@ -25,6 +25,11 @@ angular.module('starter.controllers', [])
       showGreeting:  false,
       showreminder: true
     };
+
+
+ 
+
+
   var currentuser = Parse.User.current();
   if(currentuser){
 
@@ -44,13 +49,17 @@ angular.module('starter.controllers', [])
           var r = $("<div> You haven't posted any request yet!</div>");
            $("#c").append(r);
         }
-        //alert(results.length);
         else{
           var a = $("<div> Here are your submitted requests: </div>");
            $("#c").append(a);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
-          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p> submission time: "+ object.get("createtime").substring(0,25) +"</p></div><div class='item item-body'><div> From: <br><center><b>"+ object.get("tradeClass") + " "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") +"</b></p> <p> Your matched person's name is: <b>"+ object.get("matchusername") + "</b></p>  <p>Contact email is: <b>"+ object.get("matchuseremail") + "</b></p></div></div>" );
+          if(object.get("matchusername") == undefined){
+            var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p> submission time: "+ object.get("createtime").substring(0,25) + "<br><button>Delete</button>"+"</p></div><div class='item item-body'><div> From: <br><center><b>"+ object.get("tradeClass") + " "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") + "</div></div>");
+          }
+          else{
+          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p> submission time: "+ object.get("createtime").substring(0,25) +'<br><button ng-click="deletepost()"'+">Delete</button>"+"</p></div><div class='item item-body'><div> From: <br><center><b>"+ object.get("tradeClass") + " "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") +"</b></p> <p> Your matched person's name is: <b>"+ object.get("matchusername") + "</b></p>  <p>Contact email is: <b>"+ object.get("matchuseremail") + "</b></p></div></div>" );
+        }
           $("#c").append(r);
         }
       }
@@ -59,6 +68,10 @@ angular.module('starter.controllers', [])
   }
   else{
     $scope.settings.showGreeting = false;
+  }
+
+ $scope.deletepost = function(){
+      alert("Delete")
   }
   // *** PC: This is how you define functions and since $scope is accessible by the whole controler
   // $scope.hello = function() {
