@@ -4,7 +4,7 @@
     <div ng-if="settings.showreminder" style="text-align:center">
       Please Log In First! 
     </div>
-    <div ng-if="settings.showGreeting">
+    <div class = "container" id = "c0" ng-if="settings.showGreeting">
     <h4 style="text-align:center">Please select class: </h4>
     <label class="item item-select">
             <p>Class: </p>
@@ -14,7 +14,8 @@
           <option value="STATS 250">STATS 250</option> -->
 
         </select><br></label>
-        <div class="col col-33 col-offset-67"><button class="button button-positive" id="r" ng-click="showinfo(select.classname)">Show</button></div>
+        <div class="col col-33 col-offset-67"><button class="button button-positive" id="r" ng-click="showinfo()">Show</button></div>
+
         <div class = "container" style = "border:5px solid lightblue;" id = "c1" ng-if="settings.showgreen">
         </div>
 

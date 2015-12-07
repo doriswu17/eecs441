@@ -149,7 +149,7 @@ $scope.requestInfo = {
   $scope.settings = {
       showreminder: true,
       showGreeting: false,
-      showgreen: true
+      showgreen: false
     };
   if(currentuser){
     $scope.settings.showreminder = false;
@@ -184,11 +184,11 @@ $scope.requestInfo = {
     //if ($scope.settings.showgreen == false){
     $scope.settings.showgreen = true;
   //}
-    //var name = $scope.select.classname;
+    var name = $scope.select.classname;
     //var r = $("<p style = 'margin-left: 40px'>Class Name: <b>" + name+ "</b></p><p></p>");
     //var r = $("<p style = 'margin-left: 20px'> <font size='12'><b>" + name+ "</b></font></p><p></p>");
 
-    $("#c1").append(r);
+    //$("#c1").append(r);
     var requestlist = Parse.Object.extend("Request")
     var query = new Parse.Query(requestlist)
     query.equalTo("tradeClass",name)
@@ -202,8 +202,8 @@ $scope.requestInfo = {
     });
     
     
-    var requestlist = Parse.Object.extend("Request")
-    var query1 = new Parse.Query(requestlist)
+    var requestlist1 = Parse.Object.extend("Request")
+    var query1 = new Parse.Query(requestlist1)
     query1.equalTo("tradeClass",name)
     query1.equalTo("status","matched")
     query1.find({
