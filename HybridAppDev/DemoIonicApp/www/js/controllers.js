@@ -60,7 +60,7 @@ $scope.requestInfo = {
         for(var i = 0; i < results.length;i++){
           var object = results[i];
           if(object.get("matchusername") == undefined){
-            var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p>"+ object.get("createtime").substring(0,25) + "<br><button style = 'margin-left:230px' id='" + i +"'ng-click='deletepost(i,object.objectId,requestInfo.classname,object.get('from_s'))'"+">Delete</button>"+"</p></div><div class='item item-body'><div ng-model='requestInfo.classname'> From: <br><center><b>"+ object.get("tradeClass") + " sec- " + object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " sec- " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") + "</div></div>");
+            var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p>"+ object.get("createtime").substring(0,25) + "<br><button id='" + i +"'ng-click='deletepost(i,object.objectId,requestInfo.classname,object.get('from_s'))'"+">Delete</button>"+"</p></div><div class='item item-body'><div ng-model='requestInfo.classname'> From: <br><center><b>"+ object.get("tradeClass") + " sec- " + object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " sec- " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") + "</div></div>");
           }
           else{
           var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p>"+ object.get("createtime").substring(0,25) +"</p></div><div class='item item-body'><div ng-model='requestInfo.classname'> From: <br><center><b>"+ object.get("tradeClass") + " sec- "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " sec- " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") +"</b></p> <p> Your matched person's name is: <b>"+ object.get("matchusername") + "</b></p>  <p>Contact email is: <b>"+ object.get("matchuseremail") + "</b></p></div></div>" );
@@ -81,7 +81,6 @@ $scope.requestInfo = {
               query.find({
 
                   success: function(result) {
-                     alert(result.length)
                     result[0].destroy({
                     success: function(object) {
                     alert('Delete Successful');
@@ -150,7 +149,7 @@ $scope.requestInfo = {
   $scope.settings = {
       showreminder: true,
       showGreeting: false,
-      showgreen: false
+      showgreen: true
     };
   if(currentuser){
     $scope.settings.showreminder = false;
@@ -182,7 +181,9 @@ $scope.requestInfo = {
 
   $scope.showinfo = function(classname){
     $( "#c1" ).empty();
+    //if ($scope.settings.showgreen == false){
     $scope.settings.showgreen = true;
+  //}
     //var name = $scope.select.classname;
     //var r = $("<p style = 'margin-left: 40px'>Class Name: <b>" + name+ "</b></p><p></p>");
     //var r = $("<p style = 'margin-left: 20px'> <font size='12'><b>" + name+ "</b></font></p><p></p>");
