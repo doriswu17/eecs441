@@ -149,7 +149,8 @@ $scope.requestInfo = {
   }
   $scope.settings = {
       showreminder: true,
-      showGreeting: false
+      showGreeting: false,
+      showgreen: false
     };
   if(currentuser){
     $scope.settings.showreminder = false;
@@ -160,11 +161,32 @@ $scope.requestInfo = {
     $scope.settings.showGreeting = false;
   }
 
+  var courselist = Parse.Object.extend("Course")
+  var query = new Parse.Query(courselist)
+  query.find({
+    success:function(results){
+      if (results.length == 0){
+        //var r = $("<div>No Class Active!</div>");
+        //$("#c").append(r);
+      }
+      
+      else{
+        for(var i = 0; i < results.length; i++){
+          var object = results[i];
+          var r = $("<option value="+object.get("courseName")+">"+object.get("courseName")+"</option>");
+          $("#insider").append(r);
+        }
+      }
+    }
+  });
+
   $scope.showinfo = function(classname){
     $( "#c1" ).empty();
-    var name = $scope.select.classname;
+    $scope.settings.showgreen = true;
+    //var name = $scope.select.classname;
+    //var r = $("<p style = 'margin-left: 40px'>Class Name: <b>" + name+ "</b></p><p></p>");
+    //var r = $("<p style = 'margin-left: 20px'> <font size='12'><b>" + name+ "</b></font></p><p></p>");
 
-    var r = $("<p style = 'margin-left: 20px'>Class Name: <b>" + name+ "</b></p><p></p>");
     $("#c1").append(r);
     var requestlist = Parse.Object.extend("Request")
     var query = new Parse.Query(requestlist)
@@ -173,11 +195,24 @@ $scope.requestInfo = {
     query.find({
       success:function(results){
         var totalnum = results.length;
-        var r = $("<p> Number of people looking for match: " + totalnum + "</p>")
+        var r = $("<p style = 'margin-left: 20px'><font size='3'>Number of people looking for match: <b>" + totalnum + "</font></p>")
         $("#c1").append(r);       
       }
     });
     
+    
+    var requestlist = Parse.Object.extend("Request")
+    var query1 = new Parse.Query(requestlist)
+    query1.equalTo("tradeClass",name)
+    query1.equalTo("status","matched")
+    query1.find({
+      success:function(results){
+        var totalnum = results.length;
+        var r = $("<p style = 'margin-left: 20px'><font size='3'> Number of people have found match: <b>" + totalnum + "</font></p>")
+        $("#c1").append(r);       
+      }
+    });
+
   }
   // *** PC: You can call class functions for any factory (check out services.js).
   // $scope.chats = Chats.all();

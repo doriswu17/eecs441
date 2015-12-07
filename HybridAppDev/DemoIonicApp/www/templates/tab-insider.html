@@ -8,13 +8,14 @@
     <h4 style="text-align:center">Please select class: </h4>
     <label class="item item-select">
             <p>Class: </p>
-        <select name="singleSelect" ng-model="select.classname">
-          <option value="ENG 101">ENG 101</option>
+        <select name="singleSelect" ng-model="select.classname" id = "insider">
+          <!-- <option value="ENG 101">ENG 101</option>
           <option value="EECS 441">EECS 441</option>
-          <option value="STATS 250">STATS 250</option>
+          <option value="STATS 250">STATS 250</option> -->
+
         </select><br></label>
         <div class="col col-33 col-offset-67"><button class="button button-positive" id="r" ng-click="showinfo(select.classname)">Show</button></div>
-        <div class = "container" id = "c1">
+        <div class = "container" style = "border:5px solid lightblue;" id = "c1" ng-if="settings.showgreen">
         </div>
 
 
