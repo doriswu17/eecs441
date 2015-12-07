@@ -169,7 +169,7 @@ $scope.requestInfo = {
     var requestlist = Parse.Object.extend("Request")
     var query = new Parse.Query(requestlist)
     query.equalTo("tradeClass",name)
-    query.equalTo("status","requesting")
+    query.equalTo("status","matching")
     query.find({
       success:function(results){
         var totalnum = results.length;
@@ -497,7 +497,7 @@ $scope.requestInfo = {
     ParseRequest1.set("tradeClass", c);
     ParseRequest1.set("from_s", from);
     ParseRequest1.set("to_s", to);
-    ParseRequest1.set("status", "requesting");
+    ParseRequest1.set("status", "matching");
     ParseRequest1.set("createtime", now);
 
     //test if the same section has been submitted
@@ -515,7 +515,7 @@ $scope.requestInfo = {
     q.equalTo("from_s",from);
     q.equalTo("to_s",to);
     q.equalTo("holderName",glb_userName);
-    q.equalTo("status","requesting")
+    q.equalTo("status","matching")
     q.find({
 
       success:function(results){
@@ -531,6 +531,7 @@ $scope.requestInfo = {
     q1.equalTo("from_s",to);
     q1.equalTo("to_s",from);
     q1.equalTo("holderName",glb_userName);
+    q.equalTo("status","matching")
     q1.find({
 
       success:function(results){
@@ -551,7 +552,7 @@ $scope.requestInfo = {
     success:function(results){
       if (results.length > 0){
         for (var i = 0; i < results.length;i++){
-          if (results[i].get("status") == "requesting"){
+          if (results[i].get("status") == "matching"){
             console.log(query);
       //query.descending("createdAt");
             console.log(ParseRequest1);
