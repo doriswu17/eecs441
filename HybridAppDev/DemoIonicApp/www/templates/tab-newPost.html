@@ -1,5 +1,12 @@
 <ion-view view-title="New Post">
   <ion-content>
+
+
+  <div ng-if="settings.showwarning" style="text-align:center">
+      Please Log In First! 
+    </div>
+
+
   <div class="card" ng-if="settings.showRequest">
 
     <div class="GetIn">
@@ -21,7 +28,7 @@
     </div>
     
     <div class="GetIn">
-      <div class="item item-divider">I want to GET INTO</div>
+      <div class="item item-divider">I want to GET OUT FROM</div>
       <div class="item item-body">
         <div>
           <label class="item item-select">
@@ -36,7 +43,7 @@
     </div>
 
     <div class="GetOut">
-      <div class="item item-divider">I will GET OUT FROM</div>
+      <div class="item item-divider">I hope to GET INTO</div>
       <div class="item item-body">
         <div>
         <label class="item item-select">
@@ -59,10 +66,6 @@
 
   </div>
 
-   <div ng-if="settings.showwarning" style="text-align:center">
-      Please Log In First! 
-    </div>
- 
   </ion-content>
 </ion-view>
 

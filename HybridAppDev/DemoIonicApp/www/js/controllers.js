@@ -26,8 +26,13 @@ angular.module('starter.controllers', [])
       showreminder: true
     };
 
-
- 
+$scope.requestInfo = {
+   classname: '',
+    from_s: '',
+    to_s: '',
+    username: ''
+  };
+ //var class_name = ""
 
 
   var currentuser = Parse.User.current();
@@ -46,7 +51,7 @@ angular.module('starter.controllers', [])
     query.find({
       success:function(results){
         if (results.length == 0){
-          var r = $("<div> You haven't posted any request yet!</div>");
+          var r = $("<div> You haven't posted any request yet! Check out New Post tab to make your first post!</div>");
            $("#c").append(r);
         }
         else{
@@ -55,13 +60,44 @@ angular.module('starter.controllers', [])
         for(var i = 0; i < results.length;i++){
           var object = results[i];
           if(object.get("matchusername") == undefined){
-            var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p> submission time: "+ object.get("createtime").substring(0,25) + "<br><button>Delete</button>"+"</p></div><div class='item item-body'><div> From: <br><center><b>"+ object.get("tradeClass") + " "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") + "</div></div>");
+            var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p>"+ object.get("createtime").substring(0,25) + "<br><button style = 'margin-left:230px' id='" + i +"'ng-click='deletepost(i,object.objectId,requestInfo.classname,object.get('from_s'))'"+">Delete</button>"+"</p></div><div class='item item-body'><div ng-model='requestInfo.classname'> From: <br><center><b>"+ object.get("tradeClass") + " sec- " + object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " sec- " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") + "</div></div>");
           }
           else{
-          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p> submission time: "+ object.get("createtime").substring(0,25) +'<br><button ng-click="deletepost()"'+">Delete</button>"+"</p></div><div class='item item-body'><div> From: <br><center><b>"+ object.get("tradeClass") + " "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") +"</b></p> <p> Your matched person's name is: <b>"+ object.get("matchusername") + "</b></p>  <p>Contact email is: <b>"+ object.get("matchuseremail") + "</b></p></div></div>" );
+          var r = $("<div class='list card'> <div class='item item-divider'>Request " + (i + 1) + "<p>"+ object.get("createtime").substring(0,25) +"</p></div><div class='item item-body'><div ng-model='requestInfo.classname'> From: <br><center><b>"+ object.get("tradeClass") + " sec- "+ object.get("from_s") + "</b></center> </div><div>To: <br><center><b>"+ object.get("tradeClass")+ " sec- " + object.get("to_s") + "</b></center></p></div> <p>Request status: <b>" +object.get("status") +"</b></p> <p> Your matched person's name is: <b>"+ object.get("matchusername") + "</b></p>  <p>Contact email is: <b>"+ object.get("matchuseremail") + "</b></p></div></div>" );
         }
           $("#c").append(r);
         }
+        for (var j = 0; j < results.length; j++){
+          $("#"+j).click (function(){ 
+            id = $(this).attr('id')
+
+             var object1 = results[id]
+             classname = object1.get("tradeClass")
+             Id = object1.id
+
+             var request_delete = Parse.Object.extend("Request")
+              var query = new Parse.Query(request_delete);
+              query.equalTo("objectId", Id);
+              query.find({
+
+                  success: function(result) {
+                     alert(result.length)
+                    result[0].destroy({
+                    success: function(object) {
+                    alert('Delete Successful');
+                    window.location.reload(true);
+                },
+                error: function(object, error) {
+                    alert('Delete failed');
+                }
+            });
+        },
+        error: function(error) {
+            alert('Error in delete query');
+        }
+          });//find
+        })
+      }
       }
       }
     });
@@ -70,8 +106,35 @@ angular.module('starter.controllers', [])
     $scope.settings.showGreeting = false;
   }
 
- $scope.deletepost = function(){
-      alert("Delete")
+ $scope.deletepost = function(o){
+      alert("Delete");
+            
+             alert("Delete1");
+             var request_delete = Parse.Object.extend("Request")
+             var query = new Parse.Query(request_delete);
+             alert(k)
+              alert("after k");
+             var object1 = results[j]
+             classname = object1.get("tradeClass")
+             alert(classname);
+             alert(section);
+              query.equalTo("objectId", id);
+              alert("we are here!")
+              query.find({
+                  success: function(result) {
+                    result.destroy({
+                    success: function(object) {
+                    alert('Delete Successful');
+                },
+                error: function(object, error) {
+                    alert('Delete failed');
+                }
+            });
+        },
+        error: function(error) {
+            alert('Error in delete query');
+        }
+          });//find
   }
   // *** PC: This is how you define functions and since $scope is accessible by the whole controler
   // $scope.hello = function() {
@@ -291,8 +354,8 @@ angular.module('starter.controllers', [])
   $scope.Request = {
     holderName: 'holderName',
     tradeClass: 'tradeClass',
-    from_s: 'from_s',
-    to_s: 'to_s',
+    from_s: '1',
+    to_s: '1',
     createdAt: 'createtime',
     matchusername: 'matchusername',
     matchuseremail: 'matchuseremail'
@@ -317,7 +380,6 @@ angular.module('starter.controllers', [])
     $scope.settings.showRequest = true;
     $scope.settings.showwarning = false;//
   }
-  //window.location.reload(true);
 
   var courselist = Parse.Object.extend("Course")
   var query = new Parse.Query(courselist)
@@ -339,7 +401,6 @@ angular.module('starter.controllers', [])
   });
 
   $scope.showSelectValue = function(mySelect) {
-    alert(mySelect);
     var course = Parse.Object.extend("Course")
     var query2 = new Parse.Query(course)
     query2.equalTo("courseName", mySelect);
@@ -441,22 +502,41 @@ angular.module('starter.controllers', [])
 
     //test if the same section has been submitted
     if (from == to){
-      alert("You cannot switch between the same section");
+      alert("You cannot switch between the same sections, please reselect.");
       return;
     }
-    //test if the same request has been submitted
-    //var same = Parse.Object.extend("Request");
+    if (from == "from_s" || to == "to_s"){
+      alert("Please select your sections");
+      return;
+    }
+
     var q = new Parse.Query(ParseRequest);
     q.equalTo("tradeClass",c);
     q.equalTo("from_s",from);
     q.equalTo("to_s",to);
     q.equalTo("holderName",glb_userName);
+    q.equalTo("status","requesting")
     q.find({
 
       success:function(results){
         console.log(results.length)
         if(results.length > 0){
         alert("You have submitted the request before");
+          $scope.before = true;
+          return;   
+        }
+
+         var q1 = new Parse.Query(ParseRequest);
+    q1.equalTo("tradeClass",c);
+    q1.equalTo("from_s",to);
+    q1.equalTo("to_s",from);
+    q1.equalTo("holderName",glb_userName);
+    q1.find({
+
+      success:function(results){
+        console.log(results.length)
+        if(results.length > 0){
+        alert("You have sent an opposite request before");
           $scope.before = true;
           return;   
         }
@@ -527,7 +607,11 @@ angular.module('starter.controllers', [])
     });
     }
   }); // query find
+}
+     });
       }
+
+
     });
 
   }
