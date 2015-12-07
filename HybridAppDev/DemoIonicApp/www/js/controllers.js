@@ -421,9 +421,14 @@ $scope.requestInfo = {
 
             $("#d").append(r);
           }
+          $scope.Request.from_s = '1';
+
+          $scope.Request.to_s = '1';
+
         }
       }
     });
+
 
     var query3 = new Parse.Query(course)
     query3.equalTo("courseName", mySelect);
@@ -441,6 +446,9 @@ $scope.requestInfo = {
             var p = $("<option value="+i+">"+i+"</option>");
             $("#e").append(p);
           }
+           $scope.Request.from_s = '1';
+
+          $scope.Request.to_s = '1';
         }
       }
     });
@@ -531,7 +539,7 @@ $scope.requestInfo = {
     q1.equalTo("from_s",to);
     q1.equalTo("to_s",from);
     q1.equalTo("holderName",glb_userName);
-    q.equalTo("status","matching")
+    q1.equalTo("status","matching")
     q1.find({
 
       success:function(results){
