@@ -2771,6 +2771,7 @@ ion-infinite-scroll {
   height: 100%;
   /*background-color: #eef6f7;*/
   background-image: url(../img/wallpaper.png);
+
   transform-origin: 20% 80%;
   transition: transform 15s linear;
   -webkit-background-size: cover;
@@ -3108,11 +3109,11 @@ a.subdued {
       background-image: linear-gradient(180deg, #ddd, #ddd 50%, transparent 50%); }
   .bar.bar-stable {
     border-color: #b2b2b2;
-    background-color: #7FB2F0;
+    background-color: #ffc299;
     background-image: linear-gradient(0deg, #b2b2b2, #b2b2b2 50%, transparent 50%);
     color: #FFF; }
     .bar.bar-stable .title {
-      color: #FFF; }
+      color: #174C4F; }
     .bar.bar-stable.bar-footer {
       background-image: linear-gradient(180deg, #b2b2b2, #b2b2b2 50%, transparent 50%); }
   .bar.bar-positive {
@@ -5111,6 +5112,7 @@ a.item-content {
 .item-body {
   overflow: auto;
   padding: 16px;
+  background-color: transparent;
   text-overflow: inherit;
   white-space: normal; }
   .item-body h1, .item-body h2, .item-body h3, .item-body h4, .item-body h5, .item-body h6, .item-body p {
@@ -5121,7 +5123,8 @@ a.item-content {
   padding-top: 8px;
   padding-bottom: 8px;
   min-height: 30px;
-  background-color: #f5e9be;
+  background-color:  #ffc900;
+
   color: #222;
   font-weight: 500; }
 
@@ -5130,7 +5133,7 @@ a.item-content {
   text-transform: uppercase;
   font-weight: 300;
   font-size: 13px;
-  background-color: #efeff4;
+  background-color: #174C4F;
   color: #555; }
 
 .platform-android .item-divider-platform, .item-divider-android {
