@@ -19,7 +19,7 @@ var PARSE_JAVASCRIPT_KEY = '6jwYMqyVNi5P600JVAw1w4y5393jJYg4IZArDIXn';
 
 Parse.initialize(PARSE_APP_ID, PARSE_JAVASCRIPT_KEY); 
 
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('starter', ['ionic', 'chart.js','starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform) {
   // *** PC: This function is called when the app and its plugins have loaded. Ionic
@@ -45,6 +45,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   });
 })
+
 
 .config(function($stateProvider, $urlRouterProvider) {
   // Ionic uses AngularUI Router which uses the concept of states

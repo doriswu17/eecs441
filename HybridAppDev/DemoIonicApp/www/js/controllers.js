@@ -141,6 +141,7 @@ $scope.requestInfo = {
   // }
 })
 
+
 .controller('InsiderCtrl', function($scope) {
   var currentuser = Parse.User.current();
   $scope.select = {
@@ -160,6 +161,14 @@ $scope.requestInfo = {
     $scope.settings.showGreeting = false;
   }
 
+  $scope.chartData = {
+    labels: ["looking for match", "found a match"],
+    data: [
+        [65, 59]
+    ]
+};
+
+  
   var courselist = Parse.Object.extend("Course")
   var query = new Parse.Query(courselist)
   query.find({

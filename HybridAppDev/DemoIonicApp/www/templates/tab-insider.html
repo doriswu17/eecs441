@@ -23,4 +23,24 @@
 
 </div>
   </ion-content>
+<ion-content ng-controller="InsiderCtrl">
+<div class="card">
+        <div class="item item-divider">
+            A bar chart
+      <canvas  class="chart chart-bar" data="chartData.data" labels="chartData.labels" legend="true">
+</canvas>
+</div></div>
+</ion-content>
+
+  <!-- <ion-content ng-controller="InsiderCtrl">
+
+    <div class="card">
+        <div class="item item-divider">
+            A bar chart
+        </div>
+        <div class="item item-text-wrap">
+            <canvas id='myChart' width='400' height='400'></canvas>
+        </div>
+    </div>
+</ion-content> -->
 </ion-view>
