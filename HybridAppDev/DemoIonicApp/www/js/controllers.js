@@ -51,11 +51,11 @@ $scope.requestInfo = {
     query.find({
       success:function(results){
         if (results.length == 0){
-          var r = $("<div> You haven't posted any request yet! Check out New Post tab to make your first post!</div>");
+          var r = $("<div><font color = 'white'> You haven't posted any request yet! Check out New Post tab to make your first post!</font></div>");
            $("#c").append(r);
         }
         else{
-          var a = $("<div> Here are your submitted requests: </div>");
+          var a = $("<div><font color = 'white'> Here are your submitted requests: </font></div>");
            $("#c").append(a);
         for(var i = 0; i < results.length;i++){
           var object = results[i];
