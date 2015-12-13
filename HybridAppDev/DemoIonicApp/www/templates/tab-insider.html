@@ -18,18 +18,27 @@
 
         <div class = "container" style = "border:5px solid lightblue;" id = "c1" ng-if="settings.showgreen">
         </div>
-
-
-
 </div>
-  </ion-content>
-<ion-content ng-controller="InsiderCtrl">
-<div class="card">
+
+<!-- <div class="card">
         <div class="item item-divider">
             A bar chart
-      <canvas  class="chart chart-bar" data="chartData.data" labels="chartData.labels" legend="true">
-</canvas>
+      <canvas class="chart chart-bar" data="chartData.data" labels="chartData.labels" legend="true"></canvas>
+</div></div> -->
+
+<div class="container" id = "c2">
+<!-- <div class="card" id = "c3">
+        <div class="item item-divider" id = "c4">
+            A bar chart
+      <canvas class="chart chart-bar" chart-data="chartData.data" chart-labels="chartData.labels" chart-legend="true" chart-series="series" chart-options="{showTooltips: true}"></canvas>
+</div> -->
+<div class='card'><div class='item item-divider'>
+  <canvas id="myCanvas" class='chart chart-bar' data='chartData.data' labels='chartData.labels' legend='false'></canvas>
 </div></div>
+</div>
+
+</div>
+
 </ion-content>
 
   <!-- <ion-content ng-controller="InsiderCtrl">

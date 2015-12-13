@@ -144,13 +144,16 @@ $scope.requestInfo = {
 
 .controller('InsiderCtrl', function($scope) {
   var currentuser = Parse.User.current();
+  var totalnum1 = 0;
+  var totalnum2 = 0;
+  var run = 0;
   $scope.select = {
     classname: ''
-  }
+  };
   $scope.settings = {
       showreminder: true,
       showGreeting: false,
-      showgreen: false
+      showgreen: false,
     };
   if(currentuser){
     $scope.settings.showreminder = false;
@@ -164,11 +167,25 @@ $scope.requestInfo = {
   $scope.chartData = {
     labels: ["looking for match", "found a match"],
     data: [
-        [65, 59]
+        [totalnum1,totalnum2]
     ]
 };
 
-  
+  var barData = {
+                labels : ["January","February","March","April","May","June"],
+                datasets : [
+                    {
+                        fillColor : "#48A497",
+                        strokeColor : "#48A4D1",
+                        data : [456,479,324,569,702,600]
+                    },
+                    {
+                        fillColor : "rgba(73,188,170,0.4)",
+                        strokeColor : "rgba(72,174,209,0.4)",
+                        data : [364,504,605,400,345,320]
+                    }
+                ]
+            }
   var courselist = Parse.Object.extend("Course")
   var query = new Parse.Query(courselist)
   query.find({
@@ -190,53 +207,56 @@ $scope.requestInfo = {
 
   $scope.showinfo = function(classname){
     $( "#c1" ).empty();
-    //if ($scope.settings.showgreen == false){
+    //$("#c2").empty();
     $scope.settings.showgreen = true;
-  //}
     var name = $scope.select.classname;
-    //var r = $("<p style = 'margin-left: 40px'>Class Name: <b>" + name+ "</b></p><p></p>");
-    //var r = $("<p style = 'margin-left: 20px'> <font size='12'><b>" + name+ "</b></font></p><p></p>");
-
-    //$("#c1").append(r);
     var requestlist = Parse.Object.extend("Request")
     var query = new Parse.Query(requestlist)
     query.equalTo("tradeClass",name)
     query.equalTo("status","matching")
     query.find({
       success:function(results){
-        var totalnum = results.length;
-        var r = $("<p style = 'margin-left: 20px'><font size='3'>Number of people looking for match: <b>" + totalnum + "</font></p>")
+        $scope.totalnum1 = results.length;
+        var r = $("<p style = 'margin-left: 20px'><font size='3' color = 'white'>Number of people looking for match: <b>" + $scope.totalnum1 + "</font></p>")
         $("#c1").append(r);       
+        $scope.chartData.data[0][0] = $scope.totalnum1;
       }
     });
-    
-    
     var requestlist1 = Parse.Object.extend("Request")
     var query1 = new Parse.Query(requestlist1)
     query1.equalTo("tradeClass",name)
     query1.equalTo("status","matched")
     query1.find({
       success:function(results){
-        var totalnum = results.length;
-        var r = $("<p style = 'margin-left: 20px'><font size='3'> Number of people have found match: <b>" + totalnum + "</font></p>")
-        $("#c1").append(r);       
-      }
+        $scope.totalnum2 = results.length;
+        var r = $("<p style = 'margin-left: 20px'><font size='3' color = 'white'> Number of people have found match: <b>" + $scope.totalnum2 + "</font></p>")
+
+        $scope.chartData.data[0][1] = $scope.totalnum2;
+        $scope.chartData.data[0][1] = $scope.totalnum2;
+
+        $("#c1").append(r);    
+       //  var graph = $("<div class='card'><div class='item item-divider'><canvas class='chart chart-bar' data='chartData.data' labels='chartData.labels' legend='true'></canvas></div></div>")
+       // $("#c2").append(graph);
+    //alert($scope.chartData.data[0])
+     }
+
+    });   //query1.find
+    scope.$apply(function(){
+      scope.chartData.data[0][1] = $scope.totalnum2;
+      scope.chartData.data[0][0] = $scope.totalnum1;
     });
+    $scope.$watch('chartData',function(){
+    $scope.chartData.data[0][0] = $scope.totalnum1;
+    $scope.chartData.data[0][1] = $scope.totalnum2;
 
-  }
-  // *** PC: You can call class functions for any factory (check out services.js).
-  // $scope.chats = Chats.all();
-  // $scope.remove = function(chat) {
-  //   Chats.remove(chat);
-  // };
+  })
+    //var graphs = document.getElementById("myCanvas").getContext('2d')
+    //new Chart(graphs).Bar(barData)
+  }//showinfo
+  
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+
+   //alert($scope.chartData.data[0])
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
